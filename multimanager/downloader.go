@@ -48,8 +48,6 @@ func GetObjects(ctx context.Context, c DownloaderClient, inputs []GetObjectsInpu
 		outputs[i] = *<-outputChan
 	}
 
-	close(outputChan)
-
 	return outputs
 }
 
