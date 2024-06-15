@@ -9,20 +9,28 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
+// DownloaderClient is an interface representing the S3 Client.
 type DownloaderClient interface {
 	GetObject(context.Context, *s3.GetObjectInput, ...func(*s3.Options)) (*s3.GetObjectOutput, error)
 }
 
+// GetObjectsOutput contains the response or error returned from an S3 manager download.
 type GetObjectsOutput struct {
 	Output int64
 	Err    error
 }
 
+// GetObjectsInput defines the parameters required for GetObjects.
+//
+// WriterAt is represents the destination for the download (a file for example) and is passed
+// directly to the S3 manager Downloader.
+// GetObjectInput should not be nil and is passed directly to the S3 manager Downloader.
 type GetObjectsInput struct {
 	io.WriterAt
 	*s3.GetObjectInput
 }
 
+// GetObjects uses Goroutines to concurrently download objects defined in a slice of GetObjectsInput.
 func GetObjects(ctx context.Context, c DownloaderClient, inputs []GetObjectsInput, o ...func(*manager.Downloader)) []GetObjectsOutput {
 	inputCount := len(inputs)
 	outputs := make([]GetObjectsOutput, inputCount)

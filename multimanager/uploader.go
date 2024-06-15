@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
+// UploaderClient is an interface representing the S3 Client.
 type UploaderClient interface {
 	PutObject(context.Context, *s3.PutObjectInput, ...func(*s3.Options)) (*s3.PutObjectOutput, error)
 	CreateMultipartUpload(context.Context, *s3.CreateMultipartUploadInput, ...func(*s3.Options)) (*s3.CreateMultipartUploadOutput, error)
@@ -16,11 +17,13 @@ type UploaderClient interface {
 	UploadPart(context.Context, *s3.UploadPartInput, ...func(*s3.Options)) (*s3.UploadPartOutput, error)
 }
 
+// PutObjectsOutput contains the response or error returned from an S3 manager upload.
 type PutObjectsOutput struct {
 	Output *manager.UploadOutput
 	Err    error
 }
 
+// PutObjects uses Goroutines to concurrently upload objects defined in a slice of *s3.PutObjectInput.
 func PutObjects(ctx context.Context, c UploaderClient, inputs []*s3.PutObjectInput, o ...func(*manager.Uploader)) []PutObjectsOutput {
 	inputCount := len(inputs)
 	outputs := make([]PutObjectsOutput, inputCount)
