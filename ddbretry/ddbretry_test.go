@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	ierrors "github.com/Thumbscrew/aws-go-tools/ddbretry/errors"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 	"github.com/stretchr/testify/assert"
@@ -190,7 +189,7 @@ func TestRetryDynamoDBClient_DeleteItem(t *testing.T) {
 				input: &dynamodb.DeleteItemInput{},
 			},
 			wantOutput: nil,
-			wantErr:    ierrors.NewInvalidRetryError(-2),
+			wantErr:    NewInvalidRetryError(-2),
 		},
 	}
 	for _, tt := range tests {
