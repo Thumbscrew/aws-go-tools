@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/Thumbscrew/aws-go-tools/multimanager v0.0.0-00010101000000-000000000000
 	github.com/Thumbscrew/aws-go-tools/s3strings v0.0.0-00010101000000-000000000000
-	github.com/aws/aws-sdk-go-v2 v1.27.2
+	github.com/aws/aws-sdk-go-v2 v1.30.0
 	github.com/aws/aws-sdk-go-v2/config v1.27.18
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.55.1
 	github.com/urfave/cli/v2 v2.27.2
